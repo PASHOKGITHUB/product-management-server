@@ -7,7 +7,8 @@ export class ProductController {
       const product = await ProductService.createProduct(req.body);
       res.status(201).json(product);
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error('[ProductController.create] Error:', error);
+      res.status(400).json({ message: error.message, details: error });
     }
   }
 
@@ -20,7 +21,8 @@ export class ProductController {
       const result = await ProductService.searchProducts(q, page, limit);
       res.json(result);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      console.error('[ProductController.getAll] Error:', error);
+      res.status(500).json({ message: error.message, details: error });
     }
   }
 
@@ -32,7 +34,8 @@ export class ProductController {
       }
       res.json(product);
     } catch (error: any) {
-      res.status(500).json({ message: error.message });
+      console.error('[ProductController.getById] Error:', error);
+      res.status(500).json({ message: error.message, details: error });
     }
   }
 
@@ -41,7 +44,8 @@ export class ProductController {
       const product = await ProductService.updateProduct(req.params.id, req.body);
       res.json(product);
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error('[ProductController.update] Error:', error);
+      res.status(400).json({ message: error.message, details: error });
     }
   }
 
@@ -50,7 +54,8 @@ export class ProductController {
       await ProductService.deleteProduct(req.params.id);
       res.status(204).send();
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error('[ProductController.delete] Error:', error);
+      res.status(400).json({ message: error.message, details: error });
     }
   }
 }
